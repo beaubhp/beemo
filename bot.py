@@ -18,4 +18,4 @@ async def on_ready():
     await bot.change_presence(activity=Game(name='$help | made by bahburs'))
     print(f'Bimo is ready!')
 
-bot.run('NzM3MzYwNTQ1NjE0NzkwNzU1.Xx8OhQ.8kBhqbYGYwRveCiUosXs5bm5Xlc', bot=True, reconnect=True)
+bot.run('BotTokenHere', bot=True, reconnect=True)
