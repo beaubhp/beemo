@@ -17,7 +17,7 @@ class Diceroll(commands.Cog, name = "Diceroll"):
         else:
             await ctx.send('You must input either "heads" or "tails"!')         
 
-    @commands.command(aliases=['r'], brief='$roll [x]')
+    @commands.command(brief='$roll [x]')
     async def roll(self, ctx, arg):
         try:
             float(arg)
@@ -26,6 +26,7 @@ class Diceroll(commands.Cog, name = "Diceroll"):
         else:
             number = random.randint(1, int(arg))
             await ctx.send(f'You rolled a {number}!')
+            print(ctx.message.content)
 
 def setup(bot):
     bot.add_cog(Diceroll(bot))
