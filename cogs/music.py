@@ -4,7 +4,10 @@ from discord.utils import get
 
 from youtube_dl import YoutubeDL
 from asyncio import run_coroutine_threadsafe
+
+import re
 import requests
+from bs4 import BeautifulSoup
 
 class Music(commands.Cog, name='Music'):
     YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'True'}
@@ -29,7 +32,7 @@ class Music(commands.Cog, name='Music'):
             except: info = ydl.extract_info(f"ytsearch:{arg}", download=False)['entries'][0]
             else: info = ydl.extract_info(arg, download=False)
 
-        embed = (Embed(description=f"[{info['title']}]({info['webpage_url']})", color=0x3498db)
+        embed = (Embed(description=f"[{info['title']}]({info['webpage_url']})", color=0x3de4ba)
                 .add_field(name='Duration', value=Music.parse_duration(info['duration']))
                 .add_field(name='Requested by', value=author)
                 .add_field(name='Uploader', value=f"[{info['uploader']}]({info['channel_url']})")
@@ -102,6 +105,47 @@ class Music(commands.Cog, name='Music'):
             del self.song_queue[ctx.guild][num]
             await ctx.message.delete()
             await self.edit_message(ctx)
+    
+    @commands.command(brief='$lyrics [artist] [song]')
+    async def lyrics(self, ctx, song: str):
+        message = ctx.message.content
+        song = message.replace("$lyrics", "")
+        url = self.generateUrl(song)
+        html = self.getHtml(url)
+        lyrics = self.extractLyrics(html)
+        for msg in self.extractLyrics(html):
+            await ctx.send(embed= Embed(description= msg, color= 0x3de4ba))
+    
+    def generateUrl(self,artist):
+        host = "https://genius.com/"
+        urlWords = [w.lower() for w in artist.split()] + ["lyrics"]
+        urlWords[0] = urlWords[0].title()
+        return host+"-".join(urlWords)
+    
+    def getHtml(self,url):
+        req = requests.get(url=url)
+        return BeautifulSoup(req.content, 'html.parser')
+    
+    def extractLyrics(self,html):
+        htmlString = str(html.find_all("div", "lyrics")[0])
+        htmlString, _ = re.subn("</a>","", htmlString)
+        htmlString, _= re.subn("<a[^>]*>","", htmlString)
+        htmlString, _= re.subn("<p>","", htmlString)
+        htmlString, _= re.subn("<!--sse-->","", htmlString)
+        htmlString, _= re.subn("<br/>","", htmlString)
+        htmlString, _= re.subn("<div class=\"lyrics\">","", htmlString)
+        htmlString, _= re.subn("</p>","", htmlString)
+        htmlString, _= re.subn("<!--/sse-->","", htmlString)
+        htmlString, _= re.subn("</div>","", htmlString)
+        htmlString, _= re.subn("<i>","*", htmlString)
+        htmlString, _= re.subn("</i>","*", htmlString)
+        htmlString, _= re.subn("<b>","**", htmlString)
+        htmlString, _= re.subn("</b>","**", htmlString)
+        htmlString, _= re.subn("&amp;","&", htmlString)
+        htmlString, _= re.subn("&lt;","<", htmlString)
+        htmlString, _= re.subn("&gt;",">", htmlString)
+        n = 2000
+        return [htmlString[i:i+n] for i in range(0, len(htmlString), n)]
 
 
 def setup(bot):
