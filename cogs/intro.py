@@ -1,25 +1,27 @@
 from discord import Member, User, Embed, File
 from discord.ext import commands
 
-class Jokes(commands.Cog, name = "Jokes"):
+class Intro(commands.Cog, name = "Intro"):
     def __init__(self, bot):
         self.bot = bot
     
     @commands.Cog.listener("on_message")
     async def on_message(self,message):
         channel = None
-        if (str(message.channel) != "beau") or (message.author == (self.bot.user or message.author.bot)):
+        if (message.author == (self.bot.user or message.author.bot)):
             return
         if message.content == "Hello!":
             channel = self.bot.get_channel(message.channel.id)
-            await channel.send("Hello {0} how are you?".format(message.author))
+            await message.channel.send(embed= Embed(description= f'Hello {message.author.mention} how are you?', color= 0x3de4ba))
         if self.isMessageSplitable(message.content):
             channel = self.bot.get_channel(message.channel.id)
             messageid = message.content.split()[2:]
             if message.content.split()[2] == "a":
                 messageid = message.content.split()[3:]
-            await channel.send("Hello " + " ".join(messageid) + ". I am Bimo!")
-            await channel.send(file=File('Bimo Bot/images/bimo.gif')) 
+            embed = Embed(description = f" Hello " + " ".join(messageid) + ". I am Beemo!", color = 0x3de4ba)
+            embed.set_image(url = 'https://github.com/Bahburs/bimo-discord-bot-with-music-etc/blob/master/images/bimo.png?raw=true')
+            await message.channel.send(embed = embed)
+            
     
     def isMessageSplitable(self,message):
         isLong = len(message.split()) > 2 
@@ -27,4 +29,4 @@ class Jokes(commands.Cog, name = "Jokes"):
         return isLong and correctFormat
 
 def setup(bot):
-    bot.add_cog(Jokes(bot))
+    bot.add_cog(Intro(bot))
