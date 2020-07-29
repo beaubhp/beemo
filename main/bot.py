@@ -5,8 +5,9 @@ bot = commands.Bot(command_prefix='$')
 initial_extensions = [
     'cogs.admin',
     'cogs.music',
-    'cogs.jokes',
+    'cogs.intro',
     'cogs.diceroll',
+    'cogs.levelling',
 ]
 
 if __name__ == '__main__':
@@ -23,4 +24,4 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send(f'Pong, {round(bot.latency * 1000)}ms!')
 
-bot.run(BotTokenHere, bot=True, reconnect=True)
+bot.run("NzM3NDgwNTY3MzE0MTg2MzAw.Xx9-TA.HusoBZ8Z_SQbP8To7kZRmC66p4o", bot=True, reconnect=True)
