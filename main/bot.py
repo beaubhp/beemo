@@ -24,4 +24,4 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send(f'Pong, {round(bot.latency * 1000)}ms!')
 
-bot.run("NzM3NDgwNTY3MzE0MTg2MzAw.Xx9-TA.HusoBZ8Z_SQbP8To7kZRmC66p4o", bot=True, reconnect=True)
+bot.run("YourTokenHere", bot=True, reconnect=True)
