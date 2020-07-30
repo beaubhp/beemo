@@ -23,7 +23,7 @@ class Admin(commands.Cog, name = "Admin"):
         duration = int(time[:-1]) * units[time[-1]][0]
         time = f"{time[:-1]} {units[time[-1]][1]}"
         await self.mute_handler(ctx, member)
-        embed = Embed(color=0x3de4ba, description=f'{ctx.author.mention} muted **{member}** for {time}!')
+        embed = Embed(color=0x3de4ba, description=f'{ctx.author.mention} muted {member} for {time}!')
         await ctx.send(embed=embed)
         await sleep(duration)
         await self.mute_handler(ctx, member, True)
