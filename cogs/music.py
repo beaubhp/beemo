@@ -84,10 +84,10 @@ class Music(commands.Cog, name='Music'):
         if voice.is_connected():
             await ctx.message.delete()
             if voice.is_playing():
-                await ctx.send('Music paused!', delete_after=10.0)
+                await ctx.send(embed= Embed(description= 'Music paused!', color= 0x3de4ba, delete_after=10.0))
                 voice.pause()
             else:
-                await ctx.send('Music resumed!', delete_after=10.0)
+                await ctx.send(embed= Embed(description= 'Music resumed!', color= 0x3de4ba, delete_after=10.0))
                 voice.resume()
 
     @commands.command(aliases=['pass'], brief='$skip')
@@ -95,10 +95,10 @@ class Music(commands.Cog, name='Music'):
         voice = get(self.bot.voice_clients, guild=ctx.guild)
         if voice.is_playing():
             await ctx.message.delete()
-            await ctx.send('Music skipped!', delete_after=10.0)
+            await ctx.send(embed= Embed(description= 'Music skipped!', color= 0x3de4ba, delete_after=10.0))
             voice.stop()
 
-    @commands.command(brief='$remove')
+    @commands.command(brief='$remove [x]')
     async def remove(self, ctx, *, num: int):
         voice = get(self.bot.voice_clients, guild=ctx.guild)
         if voice.is_playing():
