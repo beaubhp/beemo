@@ -9,6 +9,7 @@ initial_extensions = [
     'cogs.intro',
     'cogs.diceroll',
     'cogs.levelling',
+    'cogs.weather',
 ]
 
 if __name__ == '__main__':
