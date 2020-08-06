@@ -19,7 +19,7 @@ class Intro(commands.Cog, name = "Intro"):
             if message.content.split()[2] == "a":
                 messageid = message.content.split()[3:]
             embed = Embed(description = f" Hello " + " ".join(messageid) + ". I am Beemo!", color = 0x3de4ba)
-            embed.set_image(url = 'https://github.com/Bahburs/bimo-discord-bot-with-music-etc/blob/master/images/bimo.png?raw=true')
+            embed.set_image(url = 'https://github.com/Bahburs/bimo-discord-bot-with-music-etc/blob/master/images/beemo.png?raw=true')
             await message.channel.send(embed = embed)
             
     
