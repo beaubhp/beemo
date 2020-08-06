@@ -24,6 +24,7 @@ class Admin(commands.Cog, name = "Admin"):
         time = f"{time[:-1]} {units[time[-1]][1]}"
         await self.mute_handler(ctx, member)
         embed = Embed(color=0x3de4ba, description=f'{ctx.author.mention} muted {member} for {time}!')
+        embed.set_image(url = 'https://github.com/Bahburs/beemo-discord-music-bot-with-python/blob/master/images/beemosad.gif?raw=true')
         await ctx.send(embed=embed)
         await sleep(duration)
         await self.mute_handler(ctx, member, True)
@@ -34,6 +35,7 @@ class Admin(commands.Cog, name = "Admin"):
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member: Member, *, reason: str = None):
         embed = Embed(description=f'{ctx.author.mention} kicked **{member}**!')
+        embed.set_image(url = 'https://github.com/Bahburs/beemo-discord-music-bot-with-python/blob/master/images/beemosad.gif?raw=true')
         await member.kick(reason=reason)
         await ctx.send(embed=embed)
 
@@ -41,6 +43,7 @@ class Admin(commands.Cog, name = "Admin"):
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member: Member, *, reason: str = None):
         embed = Embed(description=f'{ctx.author.mention} banned **{member}**!')
+        embed.set_image(url = 'https://github.com/Bahburs/beemo-discord-music-bot-with-python/blob/master/images/beemosad.gif?raw=true')
         await member.ban(reason=reason)
         await ctx.send(embed=embed)
 
