@@ -1,2 +1,2 @@
-# beemo-discord-bot
-A discord bot I made that can play music, handle admin permissions, and more features soon! Built with python, using discord API and ffmpeg for music!
+# Beemo Discord Bot using Discord.py
+Basic discord bot I made. I'll create a README.md very soon haha!
